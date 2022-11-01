@@ -1,0 +1,36 @@
+SELECT
+    `klant`.`Klantnr`,`klant`.`Naam`,
+    `boeking`.`Klantnr`,`boeking`.`Reisnr`,
+    `reis`.`Reisnr`,`reis`.`Bestemmingcode`,
+    `bestemming`.`Bestemmingcode`,`bestemming`.`Plaats`,`bestemming`.`Land`,`bestemming`.`Werelddeel`
+FROM `klant`
+
+JOIN `boeking` ON `klant`.`Klantnr` = 4 && `boeking`.`Klantnr` = 4
+JOIN `reis` ON `reis`.`Reisnr` = `boeking`.`Reisnr`
+JOIN `bestemming` WHERE `bestemming`.`Bestemmingcode` = `reis`.`Bestemmingcode`;
+
+//Wie is op de uit gekozen bestemming geweest?
+
+SELECT
+    `klant`.`Klantnr`,`klant`.`Naam`,
+    `bestemming`.`Bestemmingcode`,
+    `reis`.`Bestemmingcode`,`reis`.`Reisnr`,
+    `boeking`.`Reisnr`,`boeking`.`Klantnr`
+FROM `bestemming`
+
+JOIN `reis` ON `reis`.`Bestemmingcode` = 'VERAC' && `bestemming`.`Bestemmingcode` = 'VERAC'
+JOIN `boeking` ON `boeking`.`Reisnr`  = `reis`.`Reisnr`
+JOIN `klant` WHERE `klant`.`Klantnr` = `boeking`.`Klantnr`;
+
+//wie gaat er met de uitgekozen reis mee
+
+SELECT
+    `klant`.`Klantnr`,`klant`.`Naam`,
+    `reis`.`Reisnr`,`reis`.`Bestemmingcode`,`bestemming`.`Bestemmingcode`,
+    `bestemming`.`Plaats`,`bestemming`.`Land`,`bestemming`.`Werelddeel`,
+    `boeking`.`Reisnr`,`boeking`.`Klantnr`
+FROM `reis`
+
+JOIN `boeking` ON `reis`.`Reisnr` = 7 && `boeking`.`Reisnr` = 7
+JOIN `bestemming` ON `bestemming`.`Bestemmingcode` = `reis`.`Bestemmingcode`
+JOIN `klant` WHERE `klant`.`Klantnr` = `boeking`.`Klantnr`;
